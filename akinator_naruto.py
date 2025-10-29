@@ -2,15 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-Akinator de Naruto - versión para GitHub Codespaces
+Akinator de Naruto - versión Codespaces
 ✅ Incluye 32 personajes
-❌ No usa Tkinter; muestra imágenes en HTML/Jupyter
+✅ Muestra imágenes correctamente en el navegador usando HTML temporal
 """
 
-import json
 import os
-import IPython.display as display
-from IPython.display import Image as IPImage
+import tempfile
+import webbrowser
 
 IMAGENES_DIR = "imagenes"
 
@@ -151,11 +150,23 @@ def normalizar_nombre(personaje: str) -> str:
     return personaje.strip().lower().replace(" ", "_")
 
 def mostrar_imagen(personaje: str):
-    """Muestra imagen si existe (HTML / Codespaces / Jupyter)."""
+    """Muestra la imagen en el navegador usando un HTML temporal"""
     nombre_archivo = normalizar_nombre(personaje) + ".png"
     ruta = os.path.join(IMAGENES_DIR, nombre_archivo)
     if os.path.exists(ruta):
-        display.display(IPImage(filename=ruta))
+        html_content = f"""
+        <html>
+        <head><title>{personaje}</title></head>
+        <body style="text-align:center; background:#000;">
+            <h2 style="color:#fff;">{personaje}</h2>
+            <img src="{ruta}" style="max-width:80%; height:auto;"/>
+        </body>
+        </html>
+        """
+        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".html")
+        tmp_file.write(html_content.encode("utf-8"))
+        tmp_file.close()
+        webbrowser.open("file://" + tmp_file.name)
     else:
         print(f"(No se encontró imagen para {personaje})")
 
@@ -203,7 +214,6 @@ def main():
 
     while True:
         conocimiento = jugar_nodo(conocimiento)
-
         seguir = input("\n¿Quieres jugar otra vez? (si/no): ").strip().lower()
         if seguir != "si":
             print("¡Gracias por jugar! 🍥")
