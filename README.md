@@ -2,7 +2,7 @@
 
 🌀 README.txt — Akinator de Naruto
 
-Autor: [Tu nombre aquí]
+Autor: [Jose Luis Villar Sanchez]
 Proyecto: Akinator de Naruto
 Lenguaje: Python 3
 
