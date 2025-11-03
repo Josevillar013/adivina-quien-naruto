@@ -48,7 +48,7 @@ DEFAULT_KNOWLEDGE = {
         "no": {
             "pregunta": "¿Tu personaje es un sensei o Jonin?",
             "si": {
-                "pregunta": "¿Tu personaje tiene cabello verde y es experto en taijutsu?",
+                "pregunta": "¿Tu personaje tiene traje verde y es experto en taijutsu?",
                 "si": "Might Guy",
                 "no": {
                     "pregunta": "¿Tu personaje es miembro del clan Sarutobi?",
